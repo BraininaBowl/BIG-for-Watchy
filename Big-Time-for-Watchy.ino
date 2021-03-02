@@ -1,5 +1,6 @@
 #include <Watchy.h> //include the Watchy library
 #include "Vollkorn_Black48pt7b.h"
+#include "Vollkorn_Medium12pt7b.h"
         
 
 class WatchFace : public Watchy { //inherit and extend Watchy class
@@ -26,13 +27,25 @@ class WatchFace : public Watchy { //inherit and extend Watchy class
       }
       textstring += currentTime.Minute;
       display.getTextBounds(textstring, 0, 0, &x1, &y1, &w, &h);
-      display.setCursor(100-w/2, 90+h/2);
+      display.setCursor(100-w/2, 104);
+      display.print(textstring);
+
+
+      //draw date
+      display.setFont(&Vollkorn_Medium12pt7b);
+      textstring = monthStr(currentTime.Month);
+      textstring += " ";
+      textstring += currentTime.Day;
+      textstring += " ";
+      textstring += currentTime.Year + 1970;
+      display.getTextBounds(textstring, 0, 0, &x1, &y1, &w, &h);
+      display.setCursor(100-w/2, 128+h);
       display.print(textstring);
 
       // draw battery
       float batt = (getBatteryVoltage()-3.3)/0.9;
       if (batt > 0) {
-       display.fillRect(0,198,200*batt,2,GxEPD_WHITE);
+       display.fillRect(2,196,196*batt,2,GxEPD_WHITE);
       }                 
     }
 };
