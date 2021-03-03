@@ -36,7 +36,16 @@ class WatchFace : public Watchy { //inherit and extend Watchy class
       textstring = monthStr(currentTime.Month);
       textstring += " ";
       textstring += currentTime.Day;
-      textstring += " ";
+      
+      if (currentTime.Day%10 == 1 ) {
+        textstring += "st ";
+      } else if (currentTime.Day%10 == 2 ) {
+        textstring += "nd ";
+      } else if (currentTime.Day%10 == 3 ) {
+        textstring += "rd ";
+      } else {
+        textstring += "th ";
+      }
       textstring += currentTime.Year + 1970;
       display.getTextBounds(textstring, 0, 0, &x1, &y1, &w, &h);
       display.setCursor(100-w/2, 128+h);
